@@ -1,0 +1,24 @@
+{
+  "controller": {
+    "name": "SystemController",
+    "version": "1.0.0",
+    "debug": false,
+    "max_retries": 3,
+    "timeout": 30
+  },
+  "parser": {
+    "enabled": true,
+    "strict_mode": false,
+    "supported_formats": ["json", "yaml", "xml"]
+  },
+  "rollback": {
+    "enabled": true,
+    "max_history": 10,
+    "auto_cleanup": true
+  },
+  "logging": {
+    "level": "INFO",
+    "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    "file": "logs/application.log"
+  }
+}

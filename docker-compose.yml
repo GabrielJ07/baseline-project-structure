@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: baseline-app
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+      - /app/__pycache__
+    environment:
+      - PYTHONPATH=/app
+      - ENVIRONMENT=development
+    restart: unless-stopped
+    
+  # Optional: Add a database service if needed
+  # db:
+  #   image: postgres:15-alpine
+  #   container_name: baseline-db
+  #   environment:
+  #     POSTGRES_DB: baseline
+  #     POSTGRES_USER: user
+  #     POSTGRES_PASSWORD: password
+  #   ports:
+  #     - "5432:5432"
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   restart: unless-stopped
+
+# volumes:
+#   postgres_data:
