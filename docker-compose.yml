@@ -1,34 +1,25 @@
 version: '3.8'
 
 services:
+  # This is our Python development environment from the .devcontainer setup
   app:
     build:
       context: .
-      dockerfile: Dockerfile
-    container_name: baseline-app
-    ports:
-      - "8000:8000"
+      dockerfile: .devcontainer/Dockerfile
     volumes:
-      - .:/app
-      - /app/__pycache__
-    environment:
-      - PYTHONPATH=/app
-      - ENVIRONMENT=development
-    restart: unless-stopped
-    
-  # Optional: Add a database service if needed
-  # db:
-  #   image: postgres:15-alpine
-  #   container_name: baseline-db
-  #   environment:
-  #     POSTGRES_DB: baseline
-  #     POSTGRES_USER: user
-  #     POSTGRES_PASSWORD: password
-  #   ports:
-  #     - "5432:5432"
-  #   volumes:
-  #     - postgres_data:/var/lib/postgresql/data
-  #   restart: unless-stopped
+      # Mounts the project directory into the container
+      - ..:/home/circuidev/workspace:cached
+    command: sleep infinity # Keeps the container running
 
-# volumes:
-#   postgres_data:
+  # This is the new service that runs the Ollama LLM server
+  ollama:
+    image: ollama/ollama
+    volumes:
+      # Persists the downloaded LLM models on your host machine
+      - ollama-data:/root/.ollama
+    ports:
+      # Exposes the Ollama API to your host machine if needed
+      - "11434:11434"
+
+volumes:
+  ollama-data:
