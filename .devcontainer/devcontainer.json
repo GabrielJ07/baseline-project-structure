@@ -1,25 +1,18 @@
 {
-    "name": "Baseline Project Structure Development",
-    "build": {
-        "dockerfile": "Dockerfile"
-    },
-    "features": {},
-    "customizations": {
-        "vscode": {
-            "extensions": [
-                "ms-python.python",
-                "ms-python.pylint",
-                "ms-python.black-formatter",
-                "ms-toolsai.jupyter"
-            ],
-            "settings": {
-                "python.linting.enabled": true,
-                "python.linting.pylintEnabled": true,
-                "python.formatting.provider": "black",
-                "python.defaultInterpreterPath": "/workspace/venv/bin/python"
-            }
-        }
-    },
-    "postCreateCommand": "bash .devcontainer/post-create.sh",
-    "remoteUser": "circuidev"
+  "name": "Circuittelligence Deterministic Environment",
+  "dockerFile": "Dockerfile",
+
+  "// Configure VS Code settings for the Python environment": {
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": true,
+    "python.formatting.provider": "black",
+    "terminal.integrated.shell.linux": "/bin/bash"
+  },
+
+  "// A list of VS Code extensions to install automatically": [
+    "ms-python.python"
+  ],
+
+  "// The setup commands are now embedded here, removing the need for a separate script.":
+  "postCreateCommand": "python3 -m venv /home/circuidev/workspace/.venv && source /home/circuidev/workspace/.venv/bin/activate && pip install --upgrade pip && pip install pylint black ipykernel && echo 'Dev Environment setup is complete.'"
 }
